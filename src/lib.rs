@@ -1,3 +1,13 @@
+use std::rc::Rc;
+
+pub enum Node<T> {
+    Node {
+        node: Node<T>,
+        depth: u8,
+    },
+    Data(T)
+}
+
 pub fn add(left: usize, right: usize) -> usize {
     left + right
 }
