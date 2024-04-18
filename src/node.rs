@@ -1,5 +1,5 @@
 pub struct Node {
     data: i32,
-    left: Box<Node>,
-    right: Box<Node>,
+    left: Option<Box<Node>>,
+    right: Option<Box<Node>>,
 }
