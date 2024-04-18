@@ -31,4 +31,15 @@ mod tests {
             Tree { root: None }
         )
     }
+
+    #[test]
+    fn print_empty_tree() {
+        assert_eq!(
+            format!("{:#?}", Tree::default()),
+           "\
+Tree {
+    root: None,
+}"
+        )
+    }
 }
