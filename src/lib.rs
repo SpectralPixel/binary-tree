@@ -2,6 +2,7 @@ use crate::node::Node;
 
 mod node;
 
+#[derive(Default)]
 pub struct Tree {
     root: Option<Node>,
 }
