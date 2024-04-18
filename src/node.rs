@@ -5,7 +5,7 @@ pub struct Node {
 }
 
 impl Node {
-    fn new(data: i32) -> Self {
+    pub fn new(data: i32) -> Self {
         Self {
             data,
             left: None,
