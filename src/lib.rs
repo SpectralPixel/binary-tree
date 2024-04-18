@@ -2,7 +2,7 @@ use crate::node::Node;
 
 mod node;
 
-#[derive(Default, Debug)]
+#[derive(Default, Debug, PartialEq)]
 pub struct Tree {
     root: Option<Node>,
 }
@@ -17,5 +17,18 @@ impl Tree {
                 self.root = Some(node);
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::Tree;
+
+    #[test]
+    fn default_tree() {
+        assert_eq!(
+            Tree::default(),
+            Tree { root: None }
+        )
     }
 }
