@@ -3,3 +3,13 @@ pub struct Node {
     left: Option<Box<Node>>,
     right: Option<Box<Node>>,
 }
+
+impl Node {
+    fn new(data: i32) -> Self {
+        Self {
+            data,
+            left: None,
+            right: None,
+        }
+    }
+}
