@@ -23,6 +23,7 @@ impl Tree {
 #[cfg(test)]
 mod tests {
     use crate::Tree;
+    use crate::node::Node;
 
     #[test]
     fn default_tree() {
@@ -39,6 +40,25 @@ mod tests {
            "\
 Tree {
     root: None,
+}"
+        )
+    }
+
+    #[test]
+    fn insert_root() {
+        let mut tree = Tree::default();
+        tree.insert(Node::new(3));
+        assert_eq!(
+            format!("{:#?}", tree),
+            "\
+Tree {
+    root: Some(
+        Node {
+            data: 3,
+            left: None,
+            right: None,
+        },
+    ),
 }"
         )
     }
