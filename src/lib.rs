@@ -62,4 +62,58 @@ Tree {
 }"
         )
     }
+
+    #[test]
+    fn insert_many() {
+        let mut tree = Tree::default();
+        tree.insert(Node::new(3));
+        tree.insert(Node::new(7));
+        tree.insert(Node::new(9));
+        tree.insert(Node::new(1));
+        tree.insert(Node::new(2));
+        tree.insert(Node::new(0));
+        assert_eq!(
+            format!("{:#?}", tree),
+            "\
+Tree {
+    root: Some(
+        Node {
+            data: 3,
+            left: Some(
+                Node {
+                    data: 1,
+                    left: Some(
+                        Node {
+                            data: 0,
+                            left: None,
+                            right: None,
+                        },
+                    ),
+                    right: Some(
+                        Node {
+                            data: 2,
+                            left: None,
+                            right: None,
+                        },
+                    ),
+                },
+            ),
+            right: Some(
+                Node {
+                    data: 7,
+                    left: None,
+                    right: Some(
+                        Node {
+                            data: 9,
+                            left: None,
+                            right: None,
+                        },
+                    ),
+                },
+            ),
+        },
+    ),
+}"
+        )
+    }
 }
