@@ -127,4 +127,21 @@ Tree {
 }"
         )
     }
+
+    #[test]
+    fn tree_contains() {
+        let mut tree = Tree::default();
+        tree.insert(Node::new(3));
+        tree.insert(Node::new(7));
+        tree.insert(Node::new(9));
+        tree.insert(Node::new(1));
+        tree.insert(Node::new(2));
+        tree.insert(Node::new(0));
+        assert!(tree.contains(3));
+        assert!(tree.contains(7));
+        assert!(tree.contains(9));
+        assert!(tree.contains(1));
+        assert!(tree.contains(2));
+        assert!(tree.contains(0));
+    }
 }
