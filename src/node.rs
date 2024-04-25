@@ -28,4 +28,19 @@ impl Node {
             },
         }
     }
+
+    pub fn contains(&self, data: i32) -> bool {
+        use std::cmp::Ordering::*;
+        match self.data.cmp(&data) {
+            Equal => true,
+            Less => match &self.right {
+                Some(n) => n.contains(data),
+                None => false,
+            },
+            Greater => match &self.left {
+                Some(n) => n.contains(data),
+                None => false,
+            },
+        }
+    }
 }

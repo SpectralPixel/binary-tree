@@ -18,6 +18,17 @@ impl Tree {
             }
         }
     }
+
+    pub fn contains(&self, data: i32) -> bool {
+        match &self.root {
+            Some(r) => {
+                r.contains(data)
+            },
+            None => {
+                false
+            }
+        }
+    }
 }
 
 #[cfg(test)]
