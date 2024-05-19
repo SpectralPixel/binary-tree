@@ -29,6 +29,17 @@ impl Tree {
             }
         }
     }
+
+    pub fn get(&self, location: i32) -> Option<&Node> {
+        match &self.root {
+            Some(r) => {
+                r.get(location)
+            },
+            None => {
+                None
+            }
+        }
+    }
 }
 
 #[cfg(test)]

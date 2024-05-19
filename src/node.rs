@@ -43,4 +43,19 @@ impl Node {
             },
         }
     }
+
+    pub fn get(&self, location: i32) -> Option<&Node> {
+        use std::cmp::Ordering::*;
+        match self.data.cmp(&location) {
+            Equal => Some(self),
+            Less => match &self.right {
+                Some(n) => n.get(location),
+                None => None,
+            },
+            Greater => match &self.left {
+                Some(n) => n.get(location),
+                None => None,
+            },
+        }
+    }
 }
