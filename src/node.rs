@@ -60,4 +60,8 @@ impl<T> Node<T> {
             },
         }
     }
+
+    pub fn data(&self) -> &T {
+        &self.data
+    }
 }
