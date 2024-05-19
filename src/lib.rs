@@ -3,12 +3,12 @@ use crate::node::Node;
 mod node;
 
 #[derive(Default, Debug, PartialEq)]
-pub struct Tree {
-    root: Option<Node>,
+pub struct Tree<T: Default> {
+    root: Option<Node<T>>,
 }
 
-impl Tree {
-    pub fn insert(&mut self, node: Node) {
+impl<T: Default> Tree<T> {
+    pub fn insert(&mut self, node: Node<T>) {
         match &mut self.root {
             Some(r) => {
                 r.insert(node);
@@ -30,7 +30,7 @@ impl Tree {
         }
     }
 
-    pub fn get(&self, location: i32) -> Option<&Node> {
+    pub fn get(&self, location: i32) -> Option<&Node<T>> {
         match &self.root {
             Some(r) => {
                 r.get(location)
@@ -51,14 +51,14 @@ mod tests {
     fn default_tree() {
         assert_eq!(
             Tree::default(),
-            Tree { root: None }
+            Tree::<i32> { root: None }
         )
     }
 
     #[test]
     fn print_empty_tree() {
         assert_eq!(
-            format!("{:#?}", Tree::default()),
+            format!("{:#?}", Tree::<i32>::default()),
            "\
 Tree {
     root: None,
@@ -69,14 +69,15 @@ Tree {
     #[test]
     fn insert_root() {
         let mut tree = Tree::default();
-        tree.insert(Node::new(3));
+        tree.insert(Node::new(3, 5));
         assert_eq!(
             format!("{:#?}", tree),
             "\
 Tree {
     root: Some(
         Node {
-            data: 3,
+            location: 3,
+            data: 5,
             left: None,
             right: None,
         },
@@ -88,24 +89,27 @@ Tree {
     #[test]
     fn insert_many() {
         let mut tree = Tree::default();
-        tree.insert(Node::new(3));
-        tree.insert(Node::new(7));
-        tree.insert(Node::new(9));
-        tree.insert(Node::new(1));
-        tree.insert(Node::new(2));
-        tree.insert(Node::new(0));
+        tree.insert(Node::new(3, 3));
+        tree.insert(Node::new(7, 7));
+        tree.insert(Node::new(9, 9));
+        tree.insert(Node::new(1, 1));
+        tree.insert(Node::new(2, 2));
+        tree.insert(Node::new(0, 0));
         assert_eq!(
             format!("{:#?}", tree),
             "\
 Tree {
     root: Some(
         Node {
+            location: 3,
             data: 3,
             left: Some(
                 Node {
+                    location: 1,
                     data: 1,
                     left: Some(
                         Node {
+                            location: 0,
                             data: 0,
                             left: None,
                             right: None,
@@ -113,6 +117,7 @@ Tree {
                     ),
                     right: Some(
                         Node {
+                            location: 2,
                             data: 2,
                             left: None,
                             right: None,
@@ -122,10 +127,12 @@ Tree {
             ),
             right: Some(
                 Node {
+                    location: 7,
                     data: 7,
                     left: None,
                     right: Some(
                         Node {
+                            location: 9,
                             data: 9,
                             left: None,
                             right: None,
@@ -142,12 +149,12 @@ Tree {
     #[test]
     fn tree_contains() {
         let mut tree = Tree::default();
-        tree.insert(Node::new(3));
-        tree.insert(Node::new(7));
-        tree.insert(Node::new(9));
-        tree.insert(Node::new(1));
-        tree.insert(Node::new(2));
-        tree.insert(Node::new(0));
+        tree.insert(Node::new(3, 3));
+        tree.insert(Node::new(7, 7));
+        tree.insert(Node::new(9, 9));
+        tree.insert(Node::new(1, 1));
+        tree.insert(Node::new(2, 2));
+        tree.insert(Node::new(0, 0));
         assert!(tree.contains(3));
         assert!(tree.contains(7));
         assert!(tree.contains(9));

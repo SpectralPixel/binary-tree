@@ -1,22 +1,24 @@
 #[derive(Debug, PartialEq)]
-pub struct Node {
-    data: i32,
-    left: Option<Box<Node>>,
-    right: Option<Box<Node>>,
+pub struct Node<T> {
+    location: i32,
+    data: T,
+    left: Option<Box<Node<T>>>,
+    right: Option<Box<Node<T>>>,
 }
 
-impl Node {
-    pub fn new(data: i32) -> Self {
+impl<T> Node<T> {
+    pub fn new(location: i32, data: T) -> Self {
         Self {
+            location,
             data,
             left: None,
             right: None,
         }
     }
 
-    pub fn insert(&mut self, node: Node) {
+    pub fn insert(&mut self, node: Node<T>) {
         use std::cmp::Ordering::*;
-        match node.data.cmp(&self.data) {
+        match node.location.cmp(&self.location) {
             Equal => *self = node,
             Less => match &mut self.left {
                 Some(n) => { n.insert(node); },
@@ -31,7 +33,7 @@ impl Node {
 
     pub fn contains(&self, data: i32) -> bool {
         use std::cmp::Ordering::*;
-        match self.data.cmp(&data) {
+        match self.location.cmp(&data) {
             Equal => true,
             Less => match &self.right {
                 Some(n) => n.contains(data),
@@ -44,9 +46,9 @@ impl Node {
         }
     }
 
-    pub fn get(&self, location: i32) -> Option<&Node> {
+    pub fn get(&self, location: i32) -> Option<&Node<T>> {
         use std::cmp::Ordering::*;
-        match self.data.cmp(&location) {
+        match self.location.cmp(&location) {
             Equal => Some(self),
             Less => match &self.right {
                 Some(n) => n.get(location),
