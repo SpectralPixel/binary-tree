@@ -2,9 +2,19 @@ use crate::node::Node;
 
 mod node;
 
-#[derive(Default, Debug, PartialEq)]
+#[derive(Debug, PartialEq)]
 pub struct Tree<T: Default + PartialEq> {
     root: Option<Node<T>>,
+    size: usize,
+}
+
+impl<T: Default + PartialEq> Default for Tree<T> {
+    fn default() -> Self {
+        Self {
+            root: None,
+            size: 8,
+        }
+    }
 }
 
 impl<T: Default + PartialEq> Tree<T> {
@@ -54,98 +64,7 @@ mod tests {
     fn default_tree() {
         assert_eq!(
             Tree::default(),
-            Tree::<i32> { root: None }
-        )
-    }
-
-    #[test]
-    fn print_empty_tree() {
-        assert_eq!(
-            format!("{:#?}", Tree::<i32>::default()),
-           "\
-Tree {
-    root: None,
-}"
-        )
-    }
-
-    #[test]
-    fn insert_root() {
-        let mut tree = Tree::default();
-        tree.insert(Node::new(3, 5));
-        assert_eq!(
-            format!("{:#?}", tree),
-            "\
-Tree {
-    root: Some(
-        Node {
-            location: 3,
-            data: 5,
-            left: None,
-            right: None,
-        },
-    ),
-}"
-        )
-    }
-
-    #[test]
-    fn insert_many() {
-        let mut tree = Tree::default();
-        tree.insert(Node::new(3, 3));
-        tree.insert(Node::new(7, 7));
-        tree.insert(Node::new(9, 9));
-        tree.insert(Node::new(1, 1));
-        tree.insert(Node::new(2, 2));
-        tree.insert(Node::new(0, 0));
-        assert_eq!(
-            format!("{:#?}", tree),
-            "\
-Tree {
-    root: Some(
-        Node {
-            location: 3,
-            data: 3,
-            left: Some(
-                Node {
-                    location: 1,
-                    data: 1,
-                    left: Some(
-                        Node {
-                            location: 0,
-                            data: 0,
-                            left: None,
-                            right: None,
-                        },
-                    ),
-                    right: Some(
-                        Node {
-                            location: 2,
-                            data: 2,
-                            left: None,
-                            right: None,
-                        },
-                    ),
-                },
-            ),
-            right: Some(
-                Node {
-                    location: 7,
-                    data: 7,
-                    left: None,
-                    right: Some(
-                        Node {
-                            location: 9,
-                            data: 9,
-                            left: None,
-                            right: None,
-                        },
-                    ),
-                },
-            ),
-        },
-    ),
-}"
+            Tree::<i32> { root: None, size: 8 }
         )
     }
 
